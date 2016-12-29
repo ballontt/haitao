@@ -35,6 +35,7 @@
         <protostuff.version>1.0.8</protostuff.version>
         <commons.collections.version>3.2</commons.collections.version>
     </properties>
+    <!--dependencyManagerment 表明只是声明，用于统一管理Jar包的版本，子module继承它时，在子pom中需要写依赖的包，但是不写版本号-->
     <dependencyManagement>
     <dependencies>
         <!--1. 工具类-->
@@ -256,6 +257,7 @@
         </dependency>
     </dependencies>
     </dependencyManagement>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -274,8 +276,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>

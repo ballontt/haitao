@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--依赖manager-->
     <parent>
         <artifactId>haitao-manager</artifactId>
         <groupId>com.haitao</groupId>
@@ -8,6 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>haitao-manager-service</artifactId>
+    <!--打包方式为jar-->
     <packaging>jar</packaging>
 
     <name>haitao-manager-service</name>
@@ -18,11 +20,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.haitao</groupId>
-            <artifactId>haitao-manager-dao</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -31,10 +29,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -55,6 +49,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+        </dependency>
+        <!--依赖dao-->
+        <dependency>
+            <groupId>com.haitao</groupId>
+            <artifactId>haitao-manager-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

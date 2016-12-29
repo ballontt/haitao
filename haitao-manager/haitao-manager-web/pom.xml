@@ -7,15 +7,30 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>haitao-manager-web</artifactId>
+    <!--打包方式为war-->
     <packaging>war</packaging>
     <name>haitao-manager-web Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.haitao</groupId>
             <artifactId>haitao-manager-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+        </dependency>
+        <!--json处理相关-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <!-- JSP相关 -->
         <dependency>
