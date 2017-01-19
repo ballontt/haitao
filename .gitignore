@@ -27,3 +27,6 @@ buildNumber.properties
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
+
+# Exclude .idea
+.idea/

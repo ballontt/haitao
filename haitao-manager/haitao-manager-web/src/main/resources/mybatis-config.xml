@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
     <!--配置mybatis全局属性,该文件会在spring-dao.xml文件中配置SqlsessionFactory时被读取-->
     <settings>
         <!--使用jdbc的getGeneratekeys获取自增主键值-->
@@ -16,5 +17,9 @@
         <!--开启驼峰命名转换Table:create_time到 Entity(createTime)-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <property name="dialect" value="mysql"/>
+        </plugin>
+    </plugins>
 </configuration>

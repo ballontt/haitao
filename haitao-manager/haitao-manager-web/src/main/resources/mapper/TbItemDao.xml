@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haitao.dao.TbItemDao">
+
+    <!--查询所有商品-->
+    <select id="queryList" resultType="com.haitao.entity.TbItem">
+        select id,title,sell_point,price,num,barcode,image,cid,status,created,updated from tb_item
+    </select>
+
+    <!--批量删除item商品-->
+    <delete id="deleteItemByBatch" parameterType="List">
+        delete from tb_item
+        where id IN
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!--添加商品-->
+    <insert id="addItemByOne" parameterType="com.haitao.entity.TbItem">
+       insert into tb_item values(
+          #{id},#{title},#{sellPoint},#{price},#{num},#{barcode},#{image},#{cid},#{status},#{created},#{updated}
+       )
+    </insert>
+
+    <!--更新商品-->
+    <update id="updateItemByBatch" parameterType="List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tb_item
+            <set>
+               <if test="item.title != null">title=#{item.title},</if>
+               <if test="item.sellPoint != null">sell_point=#{item.sellPoint},</if>
+               <if test="item.price != null">price=#{item.price},</if>
+               <if test="item.barcode != null">barcode=#{item.barcode},</if>
+               <if test="item.image != null">image=#{item.image},</if>
+               <if test="item.cid != null">cid=#{item.cid},</if>
+               <if test="item.status != null">status=#{item.status},</if>
+               <if test="item.created != null">created=#{item.created},</if>
+               <if test="item.updated != null">updated=#{item.updated}</if>
+            </set>
+                where id=#{item.id}
+        </foreach>
+    </update>
+</mapper>
+

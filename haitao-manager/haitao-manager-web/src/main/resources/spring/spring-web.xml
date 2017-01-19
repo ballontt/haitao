@@ -15,7 +15,14 @@
         （1）自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
          (2) 提供一系列：数据绑定，数字和日期的format @NumberFormat,@DataTimeFormat,xml,json默认读写支持
     -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+    <mvc:message-converters register-defaults="true">
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <constructor-arg value="UTF-8" />
+            <property name="supportedMediaTypes" value="text/html;charset=UTF-8" />
+        </bean>
+    </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!--servlet-mapping映射路径-->
     <!--静态资源默认servlet配置-->
