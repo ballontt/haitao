@@ -13,8 +13,14 @@
         <!--注入数据库连接池-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--设置默认编码UTF-8-->
+        <property name="defaultEncoding" value="utf-8"></property>
+        <!--设置图片最大尺寸10*1024*1024(10M)-->
+        <property name="maxUploadSize" value="10485760"></property>
 
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--配置基于注解的声明式事务 默认使用注解来管理事务行为-->
 
 </beans>

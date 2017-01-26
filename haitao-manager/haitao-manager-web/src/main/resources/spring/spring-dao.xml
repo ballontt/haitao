@@ -10,7 +10,7 @@ http://www.springframework.org/schema/beans ">
 
     <!-- 配置整合mybatis过程,spring对于mybatis的使用主要是在dao层的spring 配置中配置-->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:properties/*.properties"/>
 
     <!-- 2.数据库连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

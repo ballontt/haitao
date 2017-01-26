@@ -36,6 +36,7 @@
         <solrj.version>4.10.3</solrj.version>
         <protostuff.version>1.0.8</protostuff.version>
         <commons.collections.version>3.2</commons.collections.version>
+        <fastdfs.client.version>1.25</fastdfs.client.version>
     </properties>
     <!--dependencyManagerment 表明只是声明，用于统一管理Jar包的版本，子module继承它时，在子pom中需要写依赖的包，但是不写版本号-->
     <dependencyManagement>
@@ -118,7 +119,11 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileupload.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>fastdfs_client</groupId>
+            <artifactId>fastdfs_client</artifactId>
+            <version>${fastdfs.client.version}</version>
+        </dependency>
         <!--2. 数据库相关依赖-->
         <!--2.1 DAO框架：Mybatis的依赖-->
         <!-- Mybatis -->
