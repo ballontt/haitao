@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haitao.dao.TbItemDescDao">
+
+    <!--添加新的描述记录-->
+    <insert id="addItemDesc" parameterType="com.haitao.entity.TbItemDesc">
+       insert into tb_item_desc values(
+       #{itemId},#{itemDesc},#{created},#{updated}
+       )
+    </insert>
+
+</mapper>
+

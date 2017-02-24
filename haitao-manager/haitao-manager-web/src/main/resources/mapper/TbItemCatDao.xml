@@ -3,8 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.haitao.dao.TbItemCatDao">
-    <select id="queryList" resultType="com.haitao.entity.TbItemCat">
-        select id,parent_id,name,status,sort_order,is_parent,created,updated from tb_item_cat
+
+    <resultMap type="com.haitao.dto.ItemCatResult" id="ItemCatResultMap">
+      <result column="id" jdbcType="INTEGER" property="label"/>
+
+      <association property="data" javaType="com.haitao.entity.TbItemCat">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="sort_order" jdbcType="INTEGER" property="sortOrder"/>
+        <result column="is_parent" jdbcType="INTEGER" property="isParent"/>
+        <!--<result column="created" jdbcType="DATETIME" property="created"/>-->
+        <!--<result column="updated" jdbcType="DATETIME" property="updated"/>-->
+      </association>
+    </resultMap>
+
+    <select id="queryList" resultMap="ItemCatResultMap">
+--         select id,parent_id,name,status,sort_order,is_parent,created,updated from tb_item_cat
+        select id,parent_id,name,status,sort_order,is_parent from tb_item_cat
     </select>
 </mapper>
 

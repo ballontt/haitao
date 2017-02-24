@@ -1,5 +1,6 @@
 package com.haitao.web;
 
+import com.haitao.dto.ItemCatResult;
 import com.haitao.entity.TbItemCat;
 import com.haitao.service.TbItemCatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class TbItemCatController {
 
     @RequestMapping(value="/list",method= RequestMethod.GET,produces={"application/json;charset=utf-8"})
     @ResponseBody
-    public List<TbItemCat> queryList() {
+    public List<ItemCatResult> queryList() {
 
         return tbItemCatService.queryList();
     }

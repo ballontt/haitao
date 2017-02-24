@@ -1,6 +1,6 @@
 package com.haitao.web;
 
-import com.haitao.dto.EditTbItemResult;
+import com.haitao.dto.HaitaoResult;
 import com.haitao.dto.ItemListPage;
 import com.haitao.entity.TbItem;
 import com.haitao.exception.TbItemException;
@@ -34,7 +34,7 @@ public class TbItemController {
     //批量删除
     @RequestMapping(value="/deletions",method= RequestMethod.DELETE,produces={"application/json;charset=utf-8"})
     @ResponseBody
-   public EditTbItemResult deleteItemByBatch(TbItemIdListForm tbItemIdListForm) {
+   public HaitaoResult deleteItemByBatch(TbItemIdListForm tbItemIdListForm) {
         //接收前台传递来的list数据
         List<Long> tbItemList = tbItemIdListForm.getTbItemList();
 
@@ -45,39 +45,40 @@ public class TbItemController {
        }catch(TbItemException e)
        {
            //如果异常则返回异常信息到前台
-           return new EditTbItemResult(false,e.getMessage());
+           return new HaitaoResult(false,e.getMessage());
        }
        //返回成功执行的结果
-       return new EditTbItemResult(true,deleteResult);
+       return new HaitaoResult(deleteResult);
    }
 
 
    //增加商品
    @RequestMapping(value="/addition",method=RequestMethod.POST,produces={"application/json;charset=utf-8"})
    @ResponseBody
-   public EditTbItemResult addItemByOne(TbItem tbItem) {
+   public HaitaoResult addItemByOne(@RequestBody TbItem tbItem) {
        Long addResult;
+       String descText = tbItem.getDescText();
        try{
-           addResult= tbItemService.addItemByOne(tbItem);
+           addResult= tbItemService.addItemByOne(tbItem,descText);
 
        }catch(TbItemException e) {
-           return  new EditTbItemResult(false,e.getMessage());
+           return  new HaitaoResult(false,e.getMessage());
        }
-       return  new EditTbItemResult(true,addResult);
+       return  new HaitaoResult(addResult);
    }
 
    //批量更新商品
     @RequestMapping(value="/updation",method=RequestMethod.POST,produces={"application/json;charset=utf-8"})
     @ResponseBody
-    public EditTbItemResult updateItemByBatch(TbItemListForm tbItemListForm) {
+    public HaitaoResult updateItemByBatch(TbItemListForm tbItemListForm) {
         List<TbItem> tbItemList = tbItemListForm.getTbItemList();
         int updateResult;
         try{
             updateResult = tbItemService.updateItemByBatch(tbItemList);
 
         }catch(TbItemException e) {
-            return new EditTbItemResult(false,e.getMessage());
+            return new HaitaoResult(false,e.getMessage());
         }
-        return new EditTbItemResult(true,updateResult);
+        return new HaitaoResult(updateResult);
     }
 }

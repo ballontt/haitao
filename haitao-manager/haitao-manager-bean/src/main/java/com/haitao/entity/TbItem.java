@@ -2,6 +2,7 @@ package com.haitao.entity;
 
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by ballontt on 2017/1/3.
@@ -16,8 +17,17 @@ public class TbItem {
     private String image;
     private Long cid;
     private int status;
-    private Timestamp created;
-    private Timestamp updated;
+    private Date created;
+    private Date updated;
+    private String descText;
+
+    public String getDescText() {
+        return descText;
+    }
+
+    public void setDescText(String descText) {
+        this.descText = descText;
+    }
 
     public Long getId() {
         return id;
@@ -87,19 +97,19 @@ public class TbItem {
         this.status = status;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Timestamp getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Timestamp updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
@@ -113,10 +123,11 @@ public class TbItem {
                 ", num=" + num +
                 ", barcode='" + barcode + '\'' +
                 ", image='" + image + '\'' +
-                ", bigint=" + cid +
+                ", cid=" + cid +
                 ", status=" + status +
                 ", created=" + created +
                 ", updated=" + updated +
+                ", descText='" + descText + '\'' +
                 '}';
     }
 }
