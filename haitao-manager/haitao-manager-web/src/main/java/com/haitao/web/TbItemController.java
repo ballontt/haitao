@@ -1,7 +1,7 @@
 package com.haitao.web;
 
 import com.haitao.dto.HaitaoResult;
-import com.haitao.dto.ItemListPage;
+import com.haitao.dto.TbListPage;
 import com.haitao.entity.TbItem;
 import com.haitao.exception.TbItemException;
 import com.haitao.service.TbItemService;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,9 +26,9 @@ public class TbItemController {
     //分页查询
     @RequestMapping(value="/list",method= RequestMethod.GET,produces={"application/json;charset=utf-8"})
     @ResponseBody
-    public ItemListPage queryList(@RequestParam(value = "page",defaultValue = "1") int page,
-                                  @RequestParam(value = "rows",defaultValue = "30") int rows) {
-        ItemListPage itemListPage = tbItemService.queryList(page,rows);
+    public TbListPage<TbItem> queryList(@RequestParam(value = "page",defaultValue = "1") int page,
+                                @RequestParam(value = "rows",defaultValue = "30") int rows) {
+        TbListPage<TbItem> itemListPage = tbItemService.queryList(page,rows);
         return itemListPage;
     }
 

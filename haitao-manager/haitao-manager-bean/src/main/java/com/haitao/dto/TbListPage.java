@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * Created by ballontt on 2017/1/4.
  */
-public class ItemListPage {
+public class TbListPage<T> {
     private int totalPage;
     private int currentPage;
-    private List<TbItem> tbItemlist;
+    private List<T> tbList;
 
     public int getTotalPage() {
         return totalPage;
@@ -20,19 +20,28 @@ public class ItemListPage {
         this.totalPage = totalPage;
     }
 
-    public List<TbItem> getTbItemlist() {
-        return tbItemlist;
-    }
-
-    public void setTbItemlist(List<TbItem> tbItemlist) {
-        this.tbItemlist = tbItemlist;
-    }
-
     public int getCurrentPage() {
         return currentPage;
     }
 
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+    }
+
+    public List<T> getTbList() {
+        return tbList;
+    }
+
+    public void setTbList(List<T> tbList) {
+        this.tbList = tbList;
+    }
+
+    @Override
+    public String toString() {
+        return "TbListPage{" +
+                "totalPage=" + totalPage +
+                ", currentPage=" + currentPage +
+                ", tbList=" + tbList +
+                '}';
     }
 }

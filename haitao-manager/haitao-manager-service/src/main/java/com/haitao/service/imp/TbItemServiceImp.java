@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.haitao.dao.TbItemDao;
 import com.haitao.dao.TbItemDescDao;
-import com.haitao.dto.ItemListPage;
+import com.haitao.dto.TbListPage;
 import com.haitao.entity.TbItem;
 import com.haitao.entity.TbItemDesc;
 import com.haitao.exception.TbItemException;
@@ -31,16 +31,16 @@ public class TbItemServiceImp implements TbItemService{
     private TbItemDescDao tbItemDescDao;
 
     @Override
-    public ItemListPage queryList(int page,int rows) {
+    public TbListPage<TbItem> queryList(int page, int rows) {
         PageHelper.startPage(page,rows);
         List<TbItem> tbItemList = tbItemDao.queryList();
 
         //用PageInfo对结果进行包装
         PageInfo pageInfo = new PageInfo(tbItemList);
 
-        ItemListPage itemListPage = new ItemListPage();
+        TbListPage<TbItem> itemListPage = new TbListPage<TbItem>();
         //每页中的内容
-        itemListPage.setTbItemlist(tbItemList);
+        itemListPage.setTbList(tbItemList);
         //读取总页数
         itemListPage.setTotalPage(pageInfo.getPages());
         //读取当前页数
@@ -82,9 +82,7 @@ public class TbItemServiceImp implements TbItemService{
         if(addItemResult != 1 || addDescResult != 1) {
             throw new TbItemException("增加异常!");
         }
-        else{
-            return addItemResult;
-        }
+        return addItemResult;
     }
 
     @Override
