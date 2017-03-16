@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haitao.dao.UserAdminDao">
+
+    <!--查询所有商品-->
+    <select id="queryUser" resultType="com.haitao.entity.UserAdmin">
+        select id,user_name,password from user_admin where user_name = #{user_name};
+    </select>
+
+</mapper>
+

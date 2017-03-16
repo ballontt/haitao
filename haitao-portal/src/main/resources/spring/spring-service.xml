@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--自动service包下的类到IOC容器中-->
+    <!--<context:component-scan base-package="com.haitao.service"/>-->
+
+
+    <!--##############################2.Thrift和zookeeper的配置######################################################-->
+    <!--2.1 连接到zookeeper-->
+    <bean id="thriftZookeeper" class="com.haitao.portal.service.thrift.zookeeper.imp.ZookeeperFactory" destroy-method="close">
+        <property name="zkHost" value="192.168.74.129:2181"/>
+        <property name="namespace" value="com.haitao.thrift.rpc.rest"/>
+        <property name="sessionTimeout" value="3000"/>
+        <property name="connectionTimeout" value="3000"/>
+        <property name="singleton" value="true"/>
+    </bean>
+
+    <bean id="tbItemCatService" class="com.haitao.portal.service.thrift.ThriftServiceClientProxyFactory">
+        <property name="maxActive" value="5"></property>
+        <property name="idleTime" value="1800000"></property>
+        <property name="serverAddressProvider">
+            <bean class="com.haitao.portal.service.thrift.zookeeper.imp.ThriftServerAddressProviderZookeeper">
+                <property name="service" value="com.haitao.service.TTbItemCatService" />
+                <property name="version" value="1.0.0" />
+                <property name="zkClient" ref="thriftZookeeper" />
+            </bean>
+        </property>
+    </bean>
+
+</beans>

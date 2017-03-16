@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <import resource="spring-dao.xml"/>
+
+    <!--自动service包下的类到IOC容器中-->
+    <context:component-scan base-package="com.haitao.service"/>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--配置基于注解的声明式事务 默认使用注解来管理事务行为-->
+
+    <!--##############################2.Thrift的配置######################################################-->
+
+    <!--&lt;!&ndash;2.1 实现类注册到IOC容器中，它必须在IOC容器中的原因有两个：1）Imp中使用了自动注入Autowire，Imp也必须在容器-->
+    <!--中才可以把@AutoWire注释的对象注入到Imp 2)ThriftServerProxy依赖了TTbItemCatServiceImp&ndash;&gt;-->
+    <!--<bean id="tTbItemCatServiceImp" class="com.haitao.service.imp.TTbItemCatServiceImp"/>-->
+
+    <!--&lt;!&ndash;2.2 服务启动的代理，封装了创建transport、protocol、processor、server的过程&ndash;&gt;-->
+    <!--<bean id="thriftServerProxy" class="com.haitao.proxy.ThriftServerProxy">-->
+        <!--<property name="port" value="3425"></property>-->
+        <!--<property name="serviceInterface" value="com.haitao.service.TTbItemCatService"></property>-->
+        <!--<property name="serviceImplObject" ref="tTbItemCatServiceImp"></property>-->
+    <!--</bean>-->
+    <!--实现到zookeeper服务器的连接-->
+    <bean id="thriftZookeeper" class="com.haitao.service.thrift.zookeeper.Imp.ZookeeperFactory" destroy-method="close">
+        <property name="zkHost" value="192.168.74.129:2181"/>
+        <property name="namespace" value="com.haitao.thrift.rpc.rest"/>
+        <property name="sessionTimeout" value="3000"/>
+        <property name="connectionTimeout" value="3000"/>
+        <property name="singleton" value="true"/>
+    </bean>
+    <!--负责将thrift服务注册到zookeeper的具体注册动作-->
+    <bean id="serviceAddressRegister" class="com.haitao.service.thrift.zookeeper.Imp.ThriftServerAddressRegisterZookeeper" destroy-method="close">
+        <property name="zkClient" ref="thriftZookeeper" />
+    </bean>
+    <!--服务的具体实现类-->
+    <bean id="tbItemCatServieImp" class="com.haitao.service.imp.TTbItemCatServiceImp"/>
+    <!--服务的发布-->
+    <bean id="tbItemCatService" class="com.haitao.service.thrift.ThriftServiceServerFactory" init-method="init" destroy-method="close">
+       <property name="service" ref="tbItemCatServieImp"/>
+       <property name="port" value="3424"/>
+       <property name="version" value="1.0.0"/>
+       <property name="weight" value="1"/>
+       <property name="thriftServerAddressRegister" ref="serviceAddressRegister"/>
+    </bean>
+</beans>
